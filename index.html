@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AURUM 臻选 · 奢华精品百货</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0B10'/%3E%3Cpath d='M32 12 L50 52 L32 43 L14 52 Z' fill='%23C8A96A'/%3E%3Ccircle cx='32' cy='12' r='3' fill='%23EAD9AC'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+/* ============ 设计令牌 ============ */
+:root{
+  --bg:#0B0B10; --bg2:#12121A; --bg3:#1A1A26; --bg4:#22222F;
+  --gold:#C8A96A; --gold2:#EAD9AC; --gold3:#8E7235;
+  --ink:#F2EDE4; --muted:#94949F; --muted2:#5E5E6A;
+  --line:rgba(200,169,106,.18); --line2:rgba(200,169,106,.45);
+  --ok:#63C797; --bad:#C96464; --warn:#D08A5A;
+  --serif:'Noto Serif SC','Songti SC','SimSun',serif;
+  --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+  --nav-h:68px; --filing-h:34px; --tab-h:60px;
+  --shadow:0 18px 50px rgba(0,0,0,.45);
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--bg);
+  line-height:1.6; min-height:100vh; overflow-x:hidden;
+  padding-bottom:calc(var(--filing-h) + 40px);
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(900px 420px at 50% -8%, rgba(200,169,106,.10), transparent 62%),
+    radial-gradient(700px 500px at 100% 110%, rgba(200,169,106,.05), transparent 60%),
+    var(--bg);
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;color:inherit}
+::selection{background:rgba(200,169,106,.35)}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-thumb{background:#2A2A38;border-radius:6px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ============ 版式 ============ */
+.serif{font-family:var(--serif)}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.sec-title{font-family:var(--serif);font-weight:700;font-size:28px;letter-spacing:.06em;display:flex;align-items:center;gap:16px;margin:0 0 22px}
+.sec-title::before,.sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line2),transparent)}
+.sec-title .en{font-size:13px;color:var(--gold3);letter-spacing:.3em;font-weight:500;flex:none}
+.gold-text{background:linear-gradient(100deg,#EAD9AC 10%,#C8A96A 50%,#9A7B3F 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.muted{color:var(--muted)}
+
+/* ============ 顶栏 ============ */
+.topbar{
+  position:sticky;top:0;z-index:60;height:var(--nav-h);
+  background:rgba(11,11,16,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{height:100%;display:flex;align-items:center;gap:26px}
+.logo{display:flex;align-items:center;gap:11px;flex:none;cursor:pointer;min-height:44px}
+.logo-mark{width:40px;height:40px;border-radius:11px;border:1px solid var(--line2);display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#1D1D29,#0D0D13)}
+.logo-name{font-family:var(--serif);font-weight:900;font-size:22px;letter-spacing:.14em;line-height:1.1}
+.logo-sub{font-size:10px;color:var(--gold3);letter-spacing:.42em;font-weight:500}
+.nav-links{display:flex;gap:26px;margin-left:8px}
+.nav-links a{font-size:14.5px;color:var(--muted);letter-spacing:.12em;padding:6px 2px;position:relative;transition:color .25s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold2)}
+.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.top-search{flex:1;max-width:300px;margin-left:auto;position:relative}
+.top-search input{
+  width:100%;height:38px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);padding:0 40px 0 18px;font-size:13.5px;color:var(--ink);
+  transition:border-color .25s;outline:none;
+}
+.top-search input:focus{border-color:var(--line2)}
+.top-search .s-ico{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);display:flex}
+.top-actions{display:flex;align-items:center;gap:8px;flex:none}
+.icon-btn{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;position:relative;
+  border:1px solid transparent;transition:all .25s;color:var(--ink);
+}
+.icon-btn:hover{background:rgba(200,169,106,.10);border-color:var(--line);color:var(--gold2)}
+.icon-btn .badge{
+  position:absolute;top:2px;right:0;min-width:18px;height:18px;padding:0 5px;border-radius:9px;
+  background:linear-gradient(135deg,#E0BE77,#B8914A);color:#131013;font-size:11px;font-weight:700;
+  display:grid;place-items:center;border:2px solid var(--bg);
+}
+.hidden{display:none !important}
+
+/* ============ 视图容器 ============ */
+.view{display:none;animation:fadeUp .45s ease}
+.view.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.page-head{margin:34px 0 24px}
+.page-head h1{font-family:var(--serif);font-weight:900;font-size:32px;letter-spacing:.08em}
+.page-head p{color:var(--muted);font-size:14px;margin-top:6px}
+
+/* ============ 首页 ============ */
+.hero{
+  position:relative;border-radius:24px;overflow:hidden;margin-top:24px;
+  border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.hero img{width:100%;height:440px;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,16,.10) 0%,rgba(11,11,16,.45) 45%,rgba(11,11,16,.92) 100%)}
+.hero-copy{position:absolute;left:6%;right:6%;bottom:0;padding:0 0 44px;z-index:2}
+.hero-kicker{font-size:12px;letter-spacing:.5em;color:var(--gold2);margin-bottom:12px}
+.hero-title{font-family:var(--serif);font-weight:900;font-size:46px;line-height:1.25;letter-spacing:.08em}
+.hero-sub{color:#D8D4C8;font-size:15px;margin-top:10px;max-width:560px;font-weight:300}
+.hero-cta{display:flex;gap:14px;margin-top:24px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;border-radius:999px;
+  font-size:14.5px;font-weight:500;letter-spacing:.08em;padding:13px 30px;transition:all .25s;
+}
+.btn-gold{background:linear-gradient(135deg,#E0BE77,#B8914A 70%);color:#14100A;box-shadow:0 10px 26px rgba(200,169,106,.25)}
+.btn-gold:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn-ghost{border:1px solid var(--line2);color:var(--gold2);background:rgba(200,169,106,.05)}
+.btn-ghost:hover{background:rgba(200,169,106,.14)}
+.btn-block{width:100%}
+.btn-sm{padding:9px 20px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+.cat-strip{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0 8px}
+.chip{
+  padding:11px 20px;border-radius:999px;border:1px solid var(--line);color:var(--muted);
+  font-size:13.5px;letter-spacing:.08em;transition:all .25s;background:rgba(255,255,255,.02);
+}
+.chip:hover{color:var(--gold2);border-color:var(--line2)}
+.chip.on{background:linear-gradient(135deg,#E0BE77,#B8914A);color:#14100A;border-color:transparent;font-weight:600}
+
+.grid-products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:8px}
+.p-card{
+  background:linear-gradient(180deg,#15151F,#101018);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;
+}
+.p-card:hover{transform:translateY(-6px);border-color:var(--line2);box-shadow:var(--shadow)}
+.p-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0D0D13}
+.p-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.p-card:hover .p-media img{transform:scale(1.06)}
+.p-badge{
+  position:absolute;top:14px;left:14px;z-index:2;padding:5px 13px;border-radius:999px;
+  background:rgba(11,11,16,.72);backdrop-filter:blur(6px);border:1px solid var(--line2);
+  color:var(--gold2);font-size:11px;letter-spacing:.22em;
+}
+.p-quick{
+  position:absolute;right:12px;bottom:12px;width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,#E0BE77,#B8914A);color:#14100A;display:grid;place-items:center;
+  opacity:0;transform:translateY(8px);transition:all .3s;box-shadow:0 8px 20px rgba(0,0,0,.4);
+}
+.p-card:hover .p-quick{opacity:1;transform:none}
+.p-body{padding:16px 18px 20px}
+.p-cat{font-size:11px;letter-spacing:.26em;color:var(--gold3);margin-bottom:6px}
+.p-name{font-family:var(--serif);font-weight:700;font-size:17.5px;letter-spacing:.04em;margin-bottom:10px}
+.p-meta{display:flex;align-items:baseline;justify-content:space-between}
+.p-price{font-family:var(--serif);font-weight:900;font-size:20px;color:var(--gold2)}
+.p-price small{font-size:12px;font-weight:600;color:var(--gold);margin-right:2px}
+.p-flag{font-size:11px;color:var(--muted)}
+
+.strip-service{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:52px 0;
+}
+.svc{
+  display:flex;gap:14px;align-items:center;padding:20px 22px;border:1px solid var(--line);
+  border-radius:var(--radius);background:linear-gradient(180deg,#13131C,#0F0F17);
+}
+.svc-ico{width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line2);color:var(--gold2);background:radial-gradient(circle at 30% 25%,#1C1C29,#101018)}
+.svc b{font-family:var(--serif);font-size:15px;letter-spacing:.06em;font-weight:700}
+.svc span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+
+.brand-strip{
+  margin:10px 0 20px;border:1px solid var(--line);border-radius:24px;overflow:hidden;position:relative;
+  background:radial-gradient(700px 300px at 20% 0%, rgba(200,169,106,.10), transparent 60%),linear-gradient(180deg,#12121B,#0E0E16);
+  padding:44px 48px;
+}
+.brand-strip h3{font-family:var(--serif);font-size:24px;font-weight:700;letter-spacing:.1em}
+.brand-strip p{color:var(--muted);font-size:14px;max-width:680px;margin-top:12px;font-weight:300}
+.brand-strip .brand-tag{font-size:11px;letter-spacing:.4em;color:var(--gold3);margin-bottom:10px}
+
+/* ============ 商品详情 ============ */
+.detail-wrap{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:44px;margin-top:20px}
+.detail-media{position:sticky;top:calc(var(--nav-h) + 22px);border-radius:24px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.detail-media img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.detail-info h1{font-family:var(--serif);font-weight:900;font-size:30px;letter-spacing:.06em;line-height:1.4}
+.detail-cat{font-size:11.5px;letter-spacing:.3em;color:var(--gold3);margin:14px 0 8px}
+.detail-price{font-family:var(--serif);font-weight:900;font-size:34px;color:var(--gold2);margin:14px 0 4px}
+.detail-price small{font-size:16px;color:var(--gold);margin-right:3px}
+.detail-desc{color:var(--muted);font-size:14.5px;margin:14px 0 22px;font-weight:300;max-width:560px}
+.spec-list{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0;margin-bottom:22px}
+.spec-row{display:flex;justify-content:space-between;padding:11px 2px;font-size:14px;border-bottom:1px dashed rgba(200,169,106,.14)}
+.spec-row:last-child{border-bottom:none}
+.spec-row span:first-child{color:var(--muted)}
+.qty-row{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+.qty-label{color:var(--muted);font-size:14px}
+.qty-box{display:flex;align-items:center;border:1px solid var(--line2);border-radius:999px;overflow:hidden}
+.qty-box button{width:38px;height:38px;display:grid;place-items:center;color:var(--gold2);transition:background .2s}
+.qty-box button:hover{background:rgba(200,169,106,.12)}
+.qty-box b{min-width:44px;text-align:center;font-size:15px}
+.detail-cta{display:flex;gap:14px}
+.detail-cta .btn{flex:1;padding:16px 20px}
+
+/* ============ 购物车 / 结算 ============ */
+.cart-layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:26px;align-items:start}
+.cart-item{display:grid;grid-template-columns:112px 1fr auto;gap:18px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#13131C,#0F0F17);margin-bottom:14px}
+.cart-item img{width:112px;height:112px;object-fit:cover;border-radius:12px}
+.ci-name{font-family:var(--serif);font-weight:700;font-size:16px;letter-spacing:.04em}
+.ci-cat{font-size:11px;color:var(--gold3);letter-spacing:.2em;margin:4px 0 10px}
+.ci-price{font-family:var(--serif);color:var(--gold2);font-weight:700;font-size:17px}
+.ci-ops{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.ci-del{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:5px;transition:color .2s}
+.ci-del:hover{color:var(--bad)}
+.summary-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#14141E,#10101A);padding:24px;position:sticky;top:calc(var(--nav-h) + 22px)}
+.summary-card h3{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:.08em;margin-bottom:16px}
+.sum-line{display:flex;justify-content:space-between;font-size:14px;padding:9px 0;color:var(--muted)}
+.sum-line.total{border-top:1px solid var(--line);margin-top:10px;padding-top:16px;color:var(--ink);font-size:16px}
+.sum-line.total b{font-family:var(--serif);font-size:24px;color:var(--gold2);font-weight:900}
+.empty-state{text-align:center;padding:90px 20px;border:1px dashed var(--line);border-radius:24px;color:var(--muted)}
+.empty-state .e-ico{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;color:var(--gold2)}
+.empty-state h3{font-family:var(--serif);color:var(--ink);font-size:20px;margin-bottom:8px}
+.empty-state p{font-size:13.5px;margin-bottom:24px}
+
+/* ============ 支付 ============ */
+.checkout-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:26px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#13131C,#0F0F17);padding:24px;margin-bottom:18px}
+.panel h3{font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:.06em;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.panel h3 .p-ico{color:var(--gold2);display:flex}
+.pay-method{
+  display:flex;align-items:center;gap:14px;padding:15px 16px;border:1px solid var(--line);
+  border-radius:14px;margin-bottom:10px;cursor:pointer;transition:all .25s;background:rgba(255,255,255,.02);
+}
+.pay-method:hover{border-color:var(--line2)}
+.pay-method.on{border-color:var(--gold);background:rgba(200,169,106,.08);box-shadow:0 0 0 1px var(--gold) inset}
+.pm-ico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;flex:none;color:#fff}
+.pm-body{flex:1}
+.pm-body b{font-size:14.5px;letter-spacing:.05em;display:block}
+.pm-body span{font-size:12px;color:var(--muted)}
+.pm-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--muted2);flex:none;display:grid;place-items:center;transition:all .2s}
+.pay-method.on .pm-radio{border-color:var(--gold)}
+.pay-method.on .pm-radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.pm-badge{font-size:10.5px;color:var(--gold2);border:1px solid var(--line2);padding:2px 9px;border-radius:999px;letter-spacing:.12em}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px;letter-spacing:.08em}
+.field input{
+  width:100%;height:46px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);
+  padding:0 16px;font-size:14px;outline:none;transition:border-color .25s;
+}
+.field input:focus{border-color:var(--gold)}
+.field input::placeholder{color:var(--muted2)}
+.demo-note{font-size:12px;color:var(--warn);margin-top:8px;line-height:1.7}
+.address-line{display:flex;gap:12px;align-items:flex-start;font-size:14px;padding:6px 0}
+.address-line .a-ico{color:var(--gold2);margin-top:3px;flex:none}
+.address-line b{font-family:var(--serif);letter-spacing:.04em}
+
+/* ============ 支付处理遮罩 / 成功页 ============ */
+.processing{
+  position:fixed;inset:0;z-index:200;background:rgba(8,8,12,.88);backdrop-filter:blur(8px);
+  display:grid;place-items:center;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .3s;
+}
+.processing.show{opacity:1;pointer-events:auto;visibility:visible}
+.pr-box{text-align:center;padding:44px 56px;border:1px solid var(--line2);border-radius:24px;background:linear-gradient(180deg,#14141E,#0E0E16);box-shadow:var(--shadow)}
+.spinner{width:52px;height:52px;margin:0 auto 20px;border-radius:50%;border:3px solid rgba(200,169,106,.15);border-top-color:var(--gold);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pr-box b{font-family:var(--serif);font-size:19px;letter-spacing:.1em;display:block;margin-bottom:6px}
+.pr-box span{font-size:13px;color:var(--muted)}
+.success-hero{text-align:center;padding:56px 24px 48px}
+.success-check{width:86px;height:86px;margin:0 auto 22px;border-radius:50%;border:2px solid var(--ok);color:var(--ok);display:grid;place-items:center;box-shadow:0 0 50px rgba(99,199,151,.25);background:radial-gradient(circle at 30% 25%,rgba(99,199,151,.12),transparent 70%)}
+.success-hero h1{font-family:var(--serif);font-weight:900;font-size:30px;letter-spacing:.1em}
+.success-hero p{color:var(--muted);margin-top:10px;font-size:14px}
+.success-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#13131C,#0F0F17);padding:26px;margin:28px auto 30px;max-width:480px}
+.sc-line{display:flex;justify-content:space-between;padding:10px 0;font-size:14px;border-bottom:1px dashed rgba(200,169,106,.14)}
+.sc-line:last-child{border-bottom:none}
+.sc-line span{color:var(--muted)}
+.sc-line b{font-family:var(--serif);color:var(--gold2);font-weight:700}
+.success-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 钱包 ============ */
+.wallet-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
+.pay-card{border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:14px;display:flex;align-items:center;gap:16px;background:linear-gradient(180deg,#13131C,#0F0F17)}
+.pay-card .pm-ico{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;color:#fff}
+.pay-card b{font-size:15px;letter-spacing:.05em;display:block}
+.pay-card span{font-size:12.5px;color:var(--muted)}
+.pay-card .pm-radio{display:none}
+
+/* ============ 订单 ============ */
+.order-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#13131C,#0F0F17);padding:22px;margin-bottom:16px}
+.order-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px dashed rgba(200,169,106,.16)}
+.order-head .on{font-size:12.5px;color:var(--muted);letter-spacing:.05em}
+.status-chip{font-size:11.5px;padding:4px 13px;border-radius:999px;border:1px solid var(--line2);color:var(--gold2);letter-spacing:.14em}
+.order-items{display:flex;gap:12px;align-items:center;padding:14px 0}
+.order-items img{width:56px;height:56px;border-radius:10px;object-fit:cover}
+.order-items b{font-family:var(--serif);font-size:14px;font-weight:700}
+.order-items span{font-size:12.5px;color:var(--muted)}
+.order-foot{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);padding-top:10px;border-top:1px dashed rgba(200,169,106,.16)}
+.order-foot b{font-family:var(--serif);color:var(--gold2);font-size:18px;font-weight:900}
+
+/* ============ 客服聊天 ============ */
+.chat-layout{max-width:860px;margin:0 auto}
+.chat-panel{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#12121B,#0E0E16);box-shadow:var(--shadow);display:flex;flex-direction:column;height:calc(100vh - var(--nav-h) - 140px);min-height:460px}
+.chat-head{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;background:rgba(200,169,106,.05)}
+.chat-avatar{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#2A2A3A,#15151F);border:1px solid var(--line2);display:grid;place-items:center;color:var(--gold2);flex:none}
+.chat-head b{font-family:var(--serif);font-size:16.5px;letter-spacing:.06em;display:block}
+.chat-head span{font-size:12px;color:var(--muted)}
+.online-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);display:inline-block;margin-right:6px;box-shadow:0 0 8px rgba(99,199,151,.7)}
+.chat-body{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:14px}
+.msg{display:flex;gap:10px;max-width:82%;animation:fadeUp .3s ease}
+.msg.bot{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg .m-ava{width:32px;height:32px;flex:none;border-radius:50%;display:grid;place-items:center;color:var(--gold2);background:#191926;border:1px solid var(--line2)}
+.msg .m-box{border-radius:16px;padding:12px 16px;font-size:14px;line-height:1.7;position:relative}
+.msg.bot .m-box{background:#191926;border:1px solid var(--line);border-top-left-radius:4px}
+.msg.user .m-box{background:linear-gradient(135deg,#1F2A1E,#15201A);border:1px solid rgba(99,199,151,.25);border-top-right-radius:4px;color:#D9EEDF}
+.msg .m-time{font-size:10.5px;color:var(--muted2);margin-top:5px;text-align:right}
+.typing{display:inline-flex;gap:4px;padding:6px 2px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--gold3);animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}
+.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.chat-quick{display:flex;gap:8px;flex-wrap:wrap;padding:0 24px 12px}
+.chip-sm{padding:7px 14px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;color:var(--gold2);transition:all .2s}
+.chip-sm:hover{background:rgba(200,169,106,.12)}
+.chat-input{display:flex;gap:10px;padding:14px 24px 18px;border-top:1px solid var(--line)}
+.chat-input input{
+  flex:1;height:48px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);
+  padding:0 20px;font-size:14px;outline:none;
+}
+.chat-input input:focus{border-color:var(--gold)}
+.chat-input .send-btn{width:48px;height:48px;flex:none;border-radius:50%;background:linear-gradient(135deg,#E0BE77,#B8914A);color:#14100A;display:grid;place-items:center;transition:filter .2s}
+.chat-input .send-btn:hover{filter:brightness(1.1)}
+.chat-fab{
+  position:fixed;right:26px;bottom:calc(var(--filing-h) + 26px);z-index:90;width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,#E0BE77,#B8914A);color:#14100A;display:grid;place-items:center;
+  box-shadow:0 14px 34px rgba(200,169,106,.35);transition:transform .25s;border:2px solid rgba(255,255,255,.25);
+}
+.chat-fab:hover{transform:translateY(-3px) scale(1.04)}
+
+/* ============ 个人中心 ============ */
+.profile-head{display:flex;align-items:center;gap:20px;border:1px solid var(--line);border-radius:24px;padding:30px;background:radial-gradient(500px 220px at 20% 0%, rgba(200,169,106,.10), transparent 60%),linear-gradient(180deg,#13131C,#0F0F17)}
+.avatar{width:76px;height:76px;border-radius:50%;border:1px solid var(--line2);background:radial-gradient(circle at 30% 25%,#2A2A3A,#14141E);display:grid;place-items:center;flex:none;box-shadow:0 0 40px rgba(200,169,106,.15)}
+.avatar span{font-family:var(--serif);font-weight:900;font-size:28px;color:var(--gold2)}
+.profile-head b{font-family:var(--serif);font-size:22px;letter-spacing:.06em}
+.profile-head p{color:var(--muted);font-size:13px;margin-top:6px}
+.profile-head .vip-tag{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--gold2);border:1px solid var(--line2);padding:4px 12px;border-radius:999px;letter-spacing:.2em}
+.menu-list{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:20px;background:linear-gradient(180deg,#13131C,#0F0F17)}
+.menu-item{display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;transition:background .2s;border-bottom:1px solid rgba(200,169,106,.10)}
+.menu-item:last-child{border-bottom:none}
+.menu-item:hover{background:rgba(200,169,106,.06)}
+.menu-item .m-ico{color:var(--gold2);display:flex;flex:none}
+.menu-item b{font-size:14.5px;font-weight:500;flex:1;letter-spacing:.04em}
+.menu-item .m-note{color:var(--muted);font-size:12px}
+.menu-item .m-arrow{color:var(--muted2);display:flex}
+
+/* ============ 底部黑条（随机备案信息） ============ */
+.filing-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:150;height:var(--filing-h);
+  background:#000;border-top:1px solid rgba(200,169,106,.22);
+  display:flex;align-items:center;justify-content:center;gap:14px;overflow:hidden;
+}
+.filing-inner{display:flex;align-items:center;gap:14px;max-width:1200px;width:100%;padding:0 20px;justify-content:center;flex-wrap:wrap}
+.filing-text{
+  font-size:11px;color:#8E8E98;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
+  animation:fadeUp .4s ease;
+}
+.filing-dot{width:4px;height:4px;border-radius:50%;background:var(--gold3);flex:none}
+.filing-bar .f-brand{font-family:var(--serif);font-weight:700;font-size:11.5px;color:#B9A87C;letter-spacing:.2em;white-space:nowrap}
+
+/* ============ 移动端底栏 ============ */
+.tabbar{
+  display:none;position:fixed;left:0;right:0;bottom:var(--filing-h);z-index:140;height:var(--tab-h);
+  background:rgba(10,10,15,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);
+}
+.tabbar-inner{display:grid;grid-template-columns:repeat(4,1fr);height:100%}
+.tab-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);font-size:10.5px;letter-spacing:.1em;position:relative;transition:color .2s}
+.tab-item.on{color:var(--gold2)}
+.tab-item .badge{
+  position:absolute;top:8px;left:calc(50% + 8px);min-width:16px;height:16px;padding:0 4px;border-radius:8px;
+  background:linear-gradient(135deg,#E0BE77,#B8914A);color:#131013;font-size:10px;font-weight:700;display:grid;place-items:center;
+}
+
+/* ============ 通用组件 ============ */
+.toast-wrap{position:fixed;top:calc(var(--nav-h) + 16px);left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:10px;align-items:center}
+.toast{
+  background:rgba(20,20,28,.94);border:1px solid var(--line2);color:var(--ink);padding:11px 22px;border-radius:999px;
+  font-size:13.5px;box-shadow:var(--shadow);animation:fadeUp .3s ease;display:flex;align-items:center;gap:8px;
+}
+.toast .t-ico{color:var(--gold2);display:flex}
+.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:13.5px;margin-bottom:18px;transition:color .2s}
+.back-link:hover{color:var(--gold2)}
+.section-gap{height:34px}
+
+/* ============ 响应式 ============ */
+@media (max-width:1100px){
+  .grid-products{grid-template-columns:repeat(3,1fr)}
+  .cart-layout,.checkout-grid{grid-template-columns:1fr}
+  .summary-card{position:static}
+  .wallet-grid{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  .nav-links{display:none}
+  .top-search{max-width:none}
+  .grid-products{grid-template-columns:repeat(2,1fr)}
+  .strip-service{grid-template-columns:repeat(2,1fr)}
+  .detail-wrap{grid-template-columns:1fr;gap:26px}
+  .detail-media{position:static}
+  .hero img{height:360px}
+  .hero-title{font-size:34px}
+  .brand-strip{padding:32px 26px}
+}
+@media (max-width:720px){
+  :root{--nav-h:60px;--filing-h:44px}
+  body{padding-bottom:calc(var(--tab-h) + var(--filing-h) + 20px)}
+  .tabbar{display:block}
+  .topbar-inner{gap:12px;padding:0 16px}
+  .logo-name{font-size:19px}
+  .logo-sub{display:none}
+  .top-search{display:none}
+  .top-actions .icon-btn{padding:0}
+  .container{padding:0 16px}
+  .hero{margin-top:16px;border-radius:18px}
+  .hero img{height:300px}
+  .hero-copy{padding-bottom:26px}
+  .hero-title{font-size:27px}
+  .hero-sub{font-size:14px}
+  .hero-cta{margin-top:16px}
+  .btn{padding:11px 22px;font-size:13.5px}
+  .sec-title{font-size:22px;margin-bottom:16px}
+  .strip-service{grid-template-columns:1fr 1fr;gap:12px;margin:30px 0}
+  .svc{padding:14px 14px}
+  .svc b{font-size:13.5px}
+  .grid-products{gap:12px}
+  .p-body{padding:12px 14px 16px}
+  .p-name{font-size:15px}
+  .p-price{font-size:17px}
+  .page-head h1{font-size:26px}
+  .detail-info h1{font-size:24px}
+  .detail-price{font-size:28px}
+  .detail-cta{flex-direction:column}
+  .cart-item{grid-template-columns:88px 1fr;gap:14px}
+  .cart-item img{width:88px;height:88px}
+  .ci-ops{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between}
+  .form-grid{grid-template-columns:1fr}
+  .chat-panel{height:calc(100vh - var(--nav-h) - var(--tab-h) - var(--filing-h) - 24px)}
+  .profile-head{padding:22px;gap:16px}
+  .avatar{width:62px;height:62px}
+  .success-hero h1{font-size:24px}
+  .filing-inner{flex-wrap:nowrap;padding:0 12px;gap:10px}
+  .filing-bar .f-brand{display:none}
+  .chat-fab{display:none}
+}
+@media (max-width:400px){
+  .strip-service{grid-template-columns:1fr 1fr}
+  .grid-products{gap:10px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 顶栏 ============ -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <div class="logo" onclick="go('#/home')">
+      <span class="logo-mark">
+        <svg width="22" height="22" viewBox="0 0 64 64" fill="none"><path d="M32 10 L52 54 L32 44 L12 54 Z" fill="#C8A96A"/><circle cx="32" cy="10" r="3.4" fill="#EAD9AC"/></svg>
+      </span>
+      <span>
+        <span class="logo-name">AURUM</span>
+        <span class="logo-sub">臻选精品百货</span>
+      </span>
+    </div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#/home" data-route="home">首页</a>
+      <a href="#/home" data-route="home" data-cat="新品">新品臻藏</a>
+      <a href="#/orders">我的订单</a>
+      <a href="#/service">专属客服</a>
+    </nav>
+    <div class="top-search">
+      <input id="searchInput" type="text" placeholder="搜索臻品、品类……" autocomplete="off">
+      <span class="s-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" title="购物车" onclick="go('#/cart')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2.2l2.2 12h11l2-9H6.5"/><circle cx="9.5" cy="20" r="1.6"/><circle cx="17.5" cy="20" r="1.6"/></svg>
+        <span class="badge hidden" id="cartBadgeTop">0</span>
+      </button>
+      <button class="icon-btn" title="个人中心" onclick="go('#/profile')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c.8-4 4-6 7.5-6s6.7 2 7.5 6"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <!-- ===== 视图：首页 ===== -->
+  <section class="view" id="view-home" data-title="首页"></section>
+  <!-- ===== 视图：商品详情 ===== -->
+  <section class="view" id="view-detail" data-title="商品详情"></section>
+  <!-- ===== 视图：购物车 ===== -->
+  <section class="view" id="view-cart" data-title="购物车"></section>
+  <!-- ===== 视图：结算支付 ===== -->
+  <section class="view" id="view-checkout" data-title="结算支付"></section>
+  <!-- ===== 视图：支付成功 ===== -->
+  <section class="view" id="view-success" data-title="支付完成"></section>
+  <!-- ===== 视图：钱包（支付方式管理） ===== -->
+  <section class="view" id="view-wallet" data-title="支付方式"></section>
+  <!-- ===== 视图：订单 ===== -->
+  <section class="view" id="view-orders" data-title="我的订单"></section>
+  <!-- ===== 视图：客服 ===== -->
+  <section class="view" id="view-service" data-title="专属客服"></section>
+  <!-- ===== 视图：个人中心 ===== -->
+  <section class="view" id="view-profile" data-title="个人中心"></section>
+</main>
+
+<!-- 客服悬浮球（桌面端） -->
+<button class="chat-fab" id="chatFab" title="专属客服" onclick="go('#/service')">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13a8 8 0 0 1 16 0v3a3 3 0 0 1-3 3h-1.5"/><path d="M4 13v3a3 3 0 0 0 3 3h1.5"/><path d="M9 20.5l1.5 1.5h3l1.5-1.5"/></svg>
+</button>
+
+<!-- 移动端底栏 -->
+<nav class="tabbar">
+  <div class="tabbar-inner" id="tabbar"></div>
+</nav>
+
+<!-- 底部黑条：随机备案信息 -->
+<footer class="filing-bar">
+  <div class="filing-inner" id="filingInner"></div>
+</footer>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- 支付处理遮罩 -->
+<div class="processing" id="processing">
+  <div class="pr-box">
+    <div class="spinner"></div>
+    <b>正在安全支付通道处理</b>
+    <span>AURUM 安全网关 · 请勿关闭页面</span>
+  </div>
+</div>
+
+<!-- 图片静态清单：确保发布链路识别全部商品素材（运行时由视图复用同一相对路径） -->
+<div style="display:none" aria-hidden="true">
+  <img src="assets/hero.jpg" alt="">
+  <img src="assets/p1-watch.jpg" alt="">
+  <img src="assets/p2-handbag.jpg" alt="">
+  <img src="assets/p3-necklace.jpg" alt="">
+  <img src="assets/p4-perfume.jpg" alt="">
+  <img src="assets/p5-scarf.jpg" alt="">
+  <img src="assets/p6-heels.jpg" alt="">
+  <img src="assets/p7-sunglasses.jpg" alt="">
+  <img src="assets/p8-champagne.jpg" alt="">
+</div>
+
+<script>
+/* ================================================================
+ * AURUM 臻选 · 奢华精品百货（单文件演示商城）
+ * 支付与客服均为前端演示模拟，不产生真实扣款。
+ * ================================================================ */
+'use strict';
+
+/* ---------- 商品数据（演示数据） ---------- */
+const PRODUCTS = [
+  { id:'p1', cat:'腕表时计', name:'臻藏机械腕表', price:88800, img:'assets/p1-watch.jpg', badge:'新品臻藏',
+    desc:'蓝宝石表镜下，精密自动机械机芯以玫瑰金表壳安然栖居。罗马刻度与鳄鱼皮表带相映成章，一枚腕表，一段传世时光。',
+    specs:[['机芯','精密自动机械机芯'],['表镜','蓝宝石水晶'],['表壳','玫瑰金'],['表带','短吻鳄鱼皮'],['防水','50 米']] },
+  { id:'p2', cat:'皮具臻品', name:'鳄鱼纹臻皮手袋', price:36500, img:'assets/p2-handbag.jpg', badge:'限量典藏',
+    desc:'酒红色小牛皮经匠艺压出细密鳄纹，哑光金扣与利落廓形互为进退。一包一物，皆取顶级皮革工坊之传续。',
+    specs:[['材质','小牛皮·鳄鱼纹压花'],['五金','哑光金色'],['内里','微绒面革'],['尺寸','32 × 24 × 12 cm']] },
+  { id:'p3', cat:'珠宝臻藏', name:'蓝宝石之心项链', price:128000, img:'assets/p3-necklace.jpg', badge:'典藏臻品',
+    desc:'一枚深邃蓝宝石沉入白钻围镶的星河，铂金链条如月光垂落。珠宝不为装点，只为铭记。',
+    specs:[['主石','蓝宝石'],['围镶','白钻'],['材质','铂金'],['链长','42 cm']] },
+  { id:'p4', cat:'香氛雅集', name:'鎏金典藏香水', price:2880, img:'assets/p4-perfume.jpg', badge:'新品臻藏',
+    desc:'佛手柑初启，鸢尾与晚香玉于中调舒展，檀香琥珀收束余韵。鎏金瓶身盛装一支东方木质调的叙事。',
+    specs:[['香调','东方木质调'],['前调','佛手柑 · 粉红胡椒'],['中调','鸢尾 · 晚香玉'],['后调','檀香 · 琥珀']] },
+  { id:'p5', cat:'华服配饰', name:'真丝流云方巾', price:4680, img:'assets/p5-scarf.jpg', badge:'',
+    desc:'100% 桑蚕丝经纬织就，香槟金渐变如流云垂落，手工卷边收束每寸柔光。颈间一条，即是一帧风景。',
+    specs:[['材质','100% 桑蚕丝'],['尺寸','90 × 90 cm'],['工艺','手工卷边']] },
+  { id:'p6', cat:'华服配饰', name:'手工金履高跟', price:9980, img:'assets/p6-heels.jpg', badge:'限量典藏',
+    desc:'香槟金缎面在行走间流转光泽，8.5 厘米跟型经手工缝制打磨至优雅弧线。步履所至，皆是礼遇。',
+    specs:[['材质','缎面'],['鞋跟','8.5 cm'],['工艺','手工缝制'],['尺码','34 – 40']] },
+  { id:'p7', cat:'华服配饰', name:'臻镜玳瑁墨镜', price:3260, img:'assets/p7-sunglasses.jpg', badge:'新品臻藏',
+    desc:'玳瑁纹醋酸纤维镜框配 UV400 偏光镜片，随皮质镜盒收纳从容。目之所及，光影皆成配饰。',
+    specs:[['镜框','醋酸纤维 · 玳瑁纹'],['镜片','UV400 偏光'],['附件','皮质镜盒']] },
+  { id:'p8', cat:'美酒典藏', name:'窖藏香槟礼盒', price:6660, img:'assets/p8-champagne.jpg', badge:'典藏臻品',
+    desc:'金箔包裹的年份香槟与两只水晶杯同入礼盒，气泡细密如星芒。开瓶的刹那，便是庆典的开始。',
+    specs:[['类型','年份香槟'],['容量','750 ml × 1 · 水晶杯 × 2'],['适饮温度','8 – 10 ℃']] },
+];
+
+const CATS = ['全部','腕表时计','珠宝臻藏','皮具臻品','香氛雅集','华服配饰','美酒典藏'];
+
+/* ---------- 图标库（内联 SVG，风格统一） ---------- */
+const I = {
+  cart:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2.2l2.2 12h11l2-9H6.5"/><circle cx="9.5" cy="20" r="1.6"/><circle cx="17.5" cy="20" r="1.6"/></svg>',
+  user:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c.8-4 4-6 7.5-6s6.7 2 7.5 6"/></svg>',
+  home:'<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-8 9 8"/><path d="M5.5 9.5V21h13V9.5"/></svg>',
+  headset:'<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13a8 8 0 0 1 16 0v3a3 3 0 0 1-3 3h-1.5"/><path d="M4 13v3a3 3 0 0 0 3 3h1.5"/><path d="M9 20.5l1.5 1.5h3l1.5-1.5"/></svg>',
+  wallet:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="6" width="17" height="13" rx="2.5"/><path d="M3.5 9.5h17"/><circle cx="16.5" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>',
+  order:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4"/></svg>',
+  pin:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10-6.5 10Z"/><circle cx="12" cy="11" r="2.6"/></svg>',
+  shield:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7.5 3v5.6c0 4.8-3.3 7.7-7.5 9.4-4.2-1.7-7.5-4.6-7.5-9.4V6Z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/></svg>',
+  truck:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 6h12v11h-12z"/><path d="M14.5 10h4l3 3v4h-7z"/><circle cx="6.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg>',
+  gift:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="8.5" width="17" height="5" rx="1"/><path d="M5 13.5V20h14v-6.5"/><path d="M12 8.5V20"/><path d="M12 8.5C9 8.5 6.5 7 6.5 5s1.5-2 3-1.5C11 4 12 8.5 12 8.5Zm0 0c3 0 5.5-1.5 5.5-3.5S16 3 14.5 3.5C13 4 12 8.5 12 8.5Z"/></svg>',
+  diamond:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10l4 5-9 11L3 9Z"/><path d="M3 9h18M9 4l-1 5 4 11M15 4l1 5-4 11"/></svg>',
+  card:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M3.5 9.5h17"/><path d="M7 14.5h5"/></svg>',
+  lock:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>',
+  back:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>',
+  plus:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>',
+  minus:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/></svg>',
+  trash:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/></svg>',
+  check:'<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4.5 4.5L19 7"/></svg>',
+  chev:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5.5L15.5 12 9 18.5"/></svg>',
+  search:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+  send:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3L10.5 13.5"/><path d="M21 3L14 21l-3.5-7.5L3 10Z"/></svg>',
+  phone:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l1.5 4.5L8 10.5a14 14 0 0 0 5.5 5.5l2-2.5L20 15v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>',
+  clock:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.5l3.5 2"/></svg>',
+};
+function markIco(txt,color){ return '<span class="pm-ico" style="background:linear-gradient(135deg,'+color+','+color+'cc)">'+txt+'</span>'; }
+
+/* ---------- 状态（localStorage 持久化，演示数据） ---------- */
+const LS_KEY = 'aurum_mall_v1';
+function defaultState(){
+  return {
+    cart:[], orders:[],
+    payments:[
+      {type:'wechat', label:'微信支付', bound:true},
+      {type:'alipay', label:'支付宝', bound:true},
+    ],
+    chat:[
+      {role:'bot', text:'尊贵的宾客，您好。我是 AURUM 臻选的专属客服，很高兴为您服务。您可以咨询商品、订单、配送与售后等任何问题。', time:Date.now()},
+    ],
+    address:{name:'林臻', phone:'138 0000 6666', detail:'上海市 · 黄浦区 · 中山东一路 18 号 臻选会所 1208 室'},
+  };
+}
+function loadState(){
+  try{ const raw = localStorage.getItem(LS_KEY); if(raw){ const s = JSON.parse(raw); return Object.assign(defaultState(), s); } }catch(e){}
+  return defaultState();
+}
+let state = loadState();
+function saveState(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+
+/* ---------- 工具函数 ---------- */
+const $ = id => document.getElementById(id);
+function fmt(n){ return n.toLocaleString('zh-CN'); }
+function money(n){ return '<small>¥</small>' + fmt(n); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg, ok){
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = (ok===false?'':'<span class="t-ico">'+(ok===false?'':'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4.5 4.5L19 7"/></svg>')+'</span>') + esc(msg);
+  $('toastWrap').appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(()=>t.remove(),320); }, 2400);
+}
+function go(hash){ location.hash = hash; }
+function scrollTop(){ window.scrollTo({top:0, behavior:'auto'}); }
+
+/* ---------- 购物车 ---------- */
+function cartCount(){ return state.cart.reduce((s,it)=>s+it.qty,0); }
+function cartFind(id){ return state.cart.find(it=>it.id===id); }
+function addToCart(id, qty){
+  const it = cartFind(id);
+  if(it){ it.qty += (qty||1); } else { state.cart.push({id:id, qty:(qty||1)}); }
+  saveState(); updateBadges(); toast('已加入购物车');
+}
+function setQty(id, delta){
+  const it = cartFind(id); if(!it) return;
+  it.qty += delta;
+  if(it.qty<=0){ state.cart = state.cart.filter(x=>x.id!==id); }
+  saveState(); updateBadges(); render();
+}
+function removeItem(id){ state.cart = state.cart.filter(x=>x.id!==id); saveState(); updateBadges(); render(); toast('已移除该商品'); }
+function cartTotal(){ return state.cart.reduce((s,it)=>{ const p=PRODUCTS.find(x=>x.id===it.id); return s + (p?p.price*it.qty:0); },0); }
+function updateBadges(){
+  const n = cartCount();
+  const top = $('cartBadgeTop');
+  if(top){ top.textContent = n; top.classList.toggle('hidden', n===0); }
+  const tb = $('tabCartBadge');
+  if(tb){ tb.textContent = n; tb.classList.toggle('hidden', n===0); }
+}
+
+/* ---------- 路由 ---------- */
+const VIEWS = ['home','detail','cart','checkout','success','wallet','orders','service','profile'];
+function parseRoute(){
+  const h = location.hash.replace(/^#\/?/, '');
+  if(!h) return {name:'home'};
+  const seg = h.split('/');
+  if(seg[0]==='product') return {name:'detail', id:seg[1]};
+  if(seg[0]==='success') return {name:'success', orderNo:seg[1]};
+  if(VIEWS.indexOf(seg[0])>=0) return {name:seg[0]};
+  return {name:'home'};
+}
+let route = {name:'home'};
+function render(){
+  const r = parseRoute(); route = r;
+  VIEWS.forEach(v=>{ const el = $('view-'+v); if(el) el.classList.toggle('active', v===r.name); });
+  const main = $('app');
+  switch(r.name){
+    case 'home': renderHome(); break;
+    case 'detail': renderDetail(r.id); break;
+    case 'cart': renderCart(); break;
+    case 'checkout': renderCheckout(); break;
+    case 'success': renderSuccess(r.orderNo); break;
+    case 'wallet': renderWallet(); break;
+    case 'orders': renderOrders(); break;
+    case 'service': renderService(); break;
+    case 'profile': renderProfile(); break;
+  }
+  setActiveNav(r.name);
+  updateBadges();
+  scrollTop();
+}
+function setActiveNav(name){
+  document.querySelectorAll('#navLinks a').forEach(a=>a.classList.toggle('active', a.dataset.route===name || (name==='detail'&&a.dataset.route==='home')));
+  document.querySelectorAll('#tabbar .tab-item').forEach(t=>t.classList.toggle('on', t.dataset.tab===name));
+  const fab = $('chatFab');
+  if(fab) fab.classList.toggle('hidden', name==='service');
+}
+window.addEventListener('hashchange', render);
+
+/* ---------- 视图：首页 ---------- */
+let homeCat = '全部';
+let homeKw = '';
+function renderHome(){
+  const el = $('view-home');
+  const list = PRODUCTS.filter(p=>((homeCat==='全部')||(p.cat===homeCat)||(homeCat==='新品'&&p.badge&&p.badge.indexOf('新品')>=0)) && (!homeKw || (p.name+' '+p.cat).indexOf(homeKw)>=0));
+  el.innerHTML =
+    '<div class="container">' +
+      '<div class="hero">' +
+        '<img src="assets/hero.jpg" alt="AURUM 臻选精品百货">' +
+        '<div class="hero-copy">' +
+          '<div class="hero-kicker">AURUM · PRESTIGE COLLECTION</div>' +
+          '<h1 class="hero-title">臻选世界<br><span class="gold-text">传世礼遇</span></h1>' +
+          '<p class="hero-sub">从腕表珠宝到香氛美酒，每一件臻品皆经严选与匠艺淬炼。为懂得欣赏的人，备下时间与心意的珍藏。</p>' +
+          '<div class="hero-cta">' +
+            '<button class="btn btn-gold" onclick="go(\'#/home\');setHomeCat(\'新品\')">立即臻选</button>' +
+            '<button class="btn btn-ghost" onclick="go(\'#/service\')">专属客服</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="cat-strip">' + CATS.map(c=>'<button class="chip'+(homeCat===c?' on':'')+'" onclick="setHomeCat(\''+c+'\')">'+c+'</button>').join('') + '</div>' +
+      '<div class="sec-title"><span>臻选好物</span><span class="en">CURATED SELECTION</span></div>' +
+      (homeKw?'<p class="muted" style="margin:-10px 0 16px">搜索“'+esc(homeKw)+'”的结果：'+list.length+' 件</p>':'') +
+      (list.length
+        ? '<div class="grid-products">' + list.map(productCard).join('') + '</div>'
+        : '<div class="empty-state"><div class="e-ico">'+I.search+'</div><h3>未找到匹配的臻品</h3><p>换个关键词，或浏览全部分类</p><button class="btn btn-ghost btn-sm" onclick="setHomeCat(\'全部\');$(\'searchInput\').value=\'\'">查看全部</button></div>') +
+      '<div class="strip-service">' +
+        '<div class="svc"><span class="svc-ico">'+I.shield+'</span><span><b>正品保障</b><span>源头甄选 · 尊崇质保</span></span></div>' +
+        '<div class="svc"><span class="svc-ico">'+I.truck+'</span><span><b>全球配送</b><span>顺丰速运 · 静音送达</span></span></div>' +
+        '<div class="svc"><span class="svc-ico">'+I.gift+'</span><span><b>尊享礼遇</b><span>礼盒定制 · 贺卡随行</span></span></div>' +
+        '<div class="svc"><span class="svc-ico">'+I.headset+'</span><span><b>专属客服</b><span>全天候 · 一对一服务</span></span></div>' +
+      '</div>' +
+      '<div class="brand-strip">' +
+        '<div class="brand-tag">THE AURUM STANDARD</div>' +
+        '<h3>以匠心，守臻品</h3>' +
+        '<p>AURUM 臻选自创立以来，坚持只与恪守工艺的匠人工坊合作。每一件入库臻品，均经过材质、工艺与品相的严苛三重检视，方得以「臻选」之名，呈予您手。</p>' +
+      '</div>' +
+      '<div class="section-gap"></div>' +
+    '</div>';
+}
+function setHomeCat(c){ homeCat = c; if(!$('view-home').classList.contains('active')){ go('#/home'); } renderHome(); }
+function productCard(p){
+  return '<div class="p-card" onclick="go(\'#/product/'+p.id+'\')">' +
+    '<div class="p-media">'+(p.badge?'<span class="p-badge">'+p.badge+'</span>':'')+'<img src="'+p.img+'" alt="'+esc(p.name)+'" loading="lazy">'+
+      '<button class="p-quick" title="加入购物车" onclick="event.stopPropagation();addToCart(\''+p.id+'\',1)">'+I.plus+'</button>'+
+    '</div>' +
+    '<div class="p-body">' +
+      '<div class="p-cat">'+p.cat+'</div>' +
+      '<div class="p-name">'+p.name+'</div>' +
+      '<div class="p-meta"><span class="p-price">'+money(p.price)+'</span><span class="p-flag">'+(p.badge||'臻选')+'</span></div>' +
+    '</div>' +
+  '</div>';
+}
+function initSearch(){
+  const inp = $('searchInput');
+  if(!inp) return;
+  inp.addEventListener('input', ()=>{
+    homeKw = inp.value.trim();
+    if($('view-home').classList.contains('active')){ renderHome(); }
+  });
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter'){ if(!$('view-home').classList.contains('active')) go('#/home'); renderHome(); } });
+}
+
+/* ---------- 视图：商品详情 ---------- */
+let detailQty = 1;
+function renderDetail(id){
+  const el = $('view-detail');
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p){ go('#/home'); return; }
+  detailQty = 1;
+  el.innerHTML =
+    '<div class="container">' +
+      '<button class="back-link" onclick="go(\'#/home\')">'+I.back+' 返回臻选</button>' +
+      '<div class="detail-wrap">' +
+        '<div class="detail-media"><img src="'+p.img+'" alt="'+esc(p.name)+'"></div>' +
+        '<div class="detail-info">' +
+          '<div class="detail-cat">'+p.cat+' · AURUM CURATED</div>' +
+          '<h1>'+p.name+'</h1>' +
+          '<div class="detail-price">'+money(p.price)+'</div>' +
+          '<p class="detail-desc">'+p.desc+'</p>' +
+          '<div class="spec-list">'+p.specs.map(s=>'<div class="spec-row"><span>'+s[0]+'</span><b class="serif">'+s[1]+'</b></div>').join('')+'</div>' +
+          '<div class="qty-row"><span class="qty-label">数量</span>' +
+            '<div class="qty-box"><button onclick="setDetailQty(-1)">'+I.minus+'</button><b id="detailQty">1</b><button onclick="setDetailQty(1)">'+I.plus+'</button></div>' +
+          '</div>' +
+          '<div class="detail-cta">' +
+            '<button class="btn btn-ghost" onclick="addToCart(\''+p.id+'\', detailQty)">加入购物车</button>' +
+            '<button class="btn btn-gold" onclick="addToCart(\''+p.id+'\', detailQty);go(\'#/cart\')">立即购买</button>' +
+          '</div>' +
+          '<p class="demo-note" style="margin-top:18px">'+I.lock+' 本页面为演示商城：支付为前端模拟，不会产生真实扣款；商品信息为示例数据。</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+function setDetailQty(d){ detailQty = Math.max(1, detailQty+d); const b=$('detailQty'); if(b) b.textContent = detailQty; }
+
+/* ---------- 视图：购物车 ---------- */
+function renderCart(){
+  const el = $('view-cart');
+  const items = state.cart.map(it=>({it:it, p:PRODUCTS.find(x=>x.id===it.id)})).filter(x=>x.p);
+  const total = cartTotal();
+  const body = items.length===0
+    ? '<div class="empty-state"><div class="e-ico">'+I.cart+'</div><h3>购物车还是空的</h3><p>去臻选世界挑选心仪的臻品吧</p><button class="btn btn-gold btn-sm" onclick="go(\'#/home\')">去逛逛</button></div>'
+    : '<div class="cart-layout">' +
+        '<div>' + items.map(({it,p})=>
+          '<div class="cart-item">' +
+            '<img src="'+p.img+'" alt="'+esc(p.name)+'" onclick="go(\'#/product/'+p.id+'\')" style="cursor:pointer">' +
+            '<div><div class="ci-name">'+p.name+'</div><div class="ci-cat">'+p.cat+'</div><div class="ci-price">'+money(p.price)+'</div></div>' +
+            '<div class="ci-ops">' +
+              '<button class="ci-del" onclick="removeItem(\''+p.id+'\')">'+I.trash+' 移除</button>' +
+              '<div class="qty-box"><button onclick="setQty(\''+p.id+'\',-1)">'+I.minus+'</button><b>'+it.qty+'</b><button onclick="setQty(\''+p.id+'\',1)">'+I.plus+'</button></div>' +
+            '</div>' +
+          '</div>').join('') +
+        '</div>' +
+        '<aside class="summary-card">' +
+          '<h3>订单摘要</h3>' +
+          '<div class="sum-line"><span>商品小计</span><span>'+money(total)+'</span></div>' +
+          '<div class="sum-line"><span>尊享配送</span><span class="gold-text">免运费</span></div>' +
+          '<div class="sum-line"><span>臻选礼盒包装</span><span>赠送</span></div>' +
+          '<div class="sum-line total"><span>应付总额</span><b>'+money(total)+'</b></div>' +
+          '<button class="btn btn-gold btn-block" style="margin-top:18px" onclick="go(\'#/checkout\')">去结算</button>' +
+          '<button class="btn btn-ghost btn-block btn-sm" style="margin-top:10px" onclick="go(\'#/home\')">继续购物</button>' +
+        '</aside>' +
+      '</div>';
+  el.innerHTML =
+    '<div class="container">' +
+      '<div class="page-head"><h1>购物车</h1><p>尊选臻品，静候赴约</p></div>' +
+      body +
+      '<div class="section-gap"></div>' +
+    '</div>';
+}
+/* ---------- 视图：结算支付 ---------- */
+let payChoice = '';
+function payMethods(){
+  const cards = state.payments.filter(p=>p.type==='card');
+  const apps = state.payments.filter(p=>p.type!=='card');
+  return {cards:cards, apps:apps};
+}
+function defaultPay(){
+  const m = payMethods();
+  if(payChoice && state.payments.find(p=>(p.type==='card'?('card:'+p.last4):p.type)===payChoice)) return payChoice;
+  if(m.cards.length) return 'card:'+m.cards[0].last4;
+  return 'wechat';
+}
+function renderCheckout(){
+  const el = $('view-checkout');
+  const items = state.cart.map(it=>({it:it, p:PRODUCTS.find(x=>x.id===it.id)})).filter(x=>x.p);
+  if(items.length===0){ go('#/cart'); return; }
+  payChoice = defaultPay();
+  const total = cartTotal();
+  const m = payMethods();
+  const addr = state.address;
+  el.innerHTML =
+    '<div class="container">' +
+      '<div class="page-head"><h1>结算支付</h1><p>确认订单信息，选择心仪的支付方式</p></div>' +
+      '<div class="checkout-grid">' +
+        '<div>' +
+          '<div class="panel">' +
+            '<h3><span class="p-ico">'+I.pin+'</span>配送至</h3>' +
+            '<div class="address-line"><span class="a-ico">'+I.pin+'</span><span><b>'+esc(addr.name)+'　'+esc(addr.phone)+'</b><br><span class="muted">'+esc(addr.detail)+'</span></span></div>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<h3><span class="p-ico">'+I.card+'</span>选择支付方式</h3>' +
+            '<div id="payMethodList"></div>' +
+            '<button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="toggleCardForm()">'+I.plus+' 绑定银行卡</button>' +
+            '<div id="cardFormWrap" class="hidden" style="margin-top:16px;border-top:1px dashed rgba(200,169,106,.2);padding-top:16px"></div>' +
+            '<p class="demo-note">'+I.lock+' 演示环境：请在下方示例输入卡号即可完成绑定体验，不会产生真实扣款。请勿输入真实银行卡信息。</p>' +
+          '</div>' +
+          '<div class="panel">' +
+            '<h3><span class="p-ico">'+I.gift+'</span>臻选礼遇</h3>' +
+            '<div class="sum-line"><span>礼盒包装与贺卡</span><span class="gold-text">尊享赠送</span></div>' +
+            '<div class="sum-line"><span>配送时效</span><span>下单后 48 小时内发出</span></div>' +
+          '</div>' +
+        '</div>' +
+        '<aside class="summary-card">' +
+          '<h3>确认订单</h3>' +
+          items.map(({it,p})=>'<div class="sum-line"><span>'+esc(p.name)+' × '+it.qty+'</span><span>'+money(p.price*it.qty)+'</span></div>').join('') +
+          '<div class="sum-line total"><span>应付总额</span><b>'+money(total)+'</b></div>' +
+          '<button class="btn btn-gold btn-block" style="margin-top:18px" onclick="submitOrder()">确认支付 · '+money(total)+'</button>' +
+          '<p style="font-size:11.5px;color:var(--muted2);text-align:center;margin-top:12px">'+I.lock+' AURUM 安全网关 · 支付为演示模拟</p>' +
+        '</aside>' +
+      '</div>' +
+    '</div>';
+  renderPayList();
+}
+function renderPayList(){
+  const wrap = $('payMethodList'); if(!wrap) return;
+  const m = payMethods();
+  let html = '';
+  m.cards.forEach(c=>{
+    html += '<div class="pay-method'+(payChoice==='card:'+c.last4?' on':'')+'" onclick="pickPay(\'card:'+c.last4+'\')">' +
+      markIco('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M3.5 9.5h17"/><path d="M7 14.5h5"/></svg>','#2E2E3A') +
+      '<span class="pm-body"><b>'+esc(c.bank)+' 储蓄卡（尾号 '+c.last4+'）</b><span>持卡人 '+esc(c.holder)+' · 有效期 '+esc(c.expiry)+'</span></span>' +
+      '<span class="pm-radio"></span></div>';
+  });
+  m.apps.forEach(a=>{
+    const mark = a.type==='wechat' ? markIco('微','#1FA84F') : markIco('支','#1677FF');
+    html += '<div class="pay-method'+(payChoice===a.type?' on':'')+'" onclick="pickPay(\''+a.type+'\')">' + mark +
+      '<span class="pm-body"><b>'+a.label+'</b><span>已绑定 · 免密快捷支付</span></span>' +
+      '<span class="pm-badge">已绑定</span><span class="pm-radio"></span></div>';
+  });
+  wrap.innerHTML = html || '<p class="muted" style="font-size:13px">尚未绑定银行卡，可点击下方按钮添加</p>';
+}
+function pickPay(key){ payChoice = key; renderPayList(); }
+function toggleCardForm(){
+  const wrap = $('cardFormWrap');
+  const open = wrap.classList.contains('hidden');
+  wrap.classList.toggle('hidden');
+  if(open) wrap.innerHTML = cardFormHTML();
+}
+function cardFormHTML(){
+  return '<div class="form-grid">' +
+    '<div class="field" style="grid-column:1/-1"><label>银行卡号</label><input id="cfNo" inputmode="numeric" maxlength="23" placeholder="6222 0000 0000 0000" autocomplete="off"></div>' +
+    '<div class="field"><label>持卡人姓名</label><input id="cfHolder" maxlength="20" placeholder="姓名（拼音或中文）" autocomplete="off"></div>' +
+    '<div class="field"><label>有效期</label><input id="cfExp" maxlength="5" placeholder="MM/YY" autocomplete="off"></div>' +
+    '<div class="field"><label>安全码 CVV</label><input id="cfCvv" type="password" inputmode="numeric" maxlength="4" placeholder="3 位数字" autocomplete="off"></div>' +
+    '<div class="field" style="grid-column:1/-1"><button class="btn btn-gold btn-block" onclick="saveCard()">确认绑定</button></div>' +
+  '</div>';
+}
+function saveCard(){
+  const no = $('cfNo').value.replace(/\s+/g,'');
+  const holder = $('cfHolder').value.trim();
+  const exp = $('cfExp').value.trim();
+  const cvv = $('cfCvv').value.trim();
+  if(!/^\d{13,19}$/.test(no)){ toast('请输入 13–19 位银行卡号', false); return; }
+  if(!holder){ toast('请填写持卡人姓名', false); return; }
+  if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(exp)){ toast('有效期格式应为 MM/YY', false); return; }
+  if(!/^\d{3,4}$/.test(cvv)){ toast('请输入 3–4 位安全码', false); return; }
+  const last4 = no.slice(-4);
+  if(state.payments.find(p=>p.type==='card'&&p.last4===last4)){ toast('该卡已绑定', false); return; }
+  state.payments.unshift({type:'card', label:'银行卡', bank:'AURUM 合作银行', last4:last4, holder:holder, expiry:exp});
+  saveState(); payChoice = 'card:'+last4;
+  toast('银行卡绑定成功');
+  if($('view-checkout').classList.contains('active')){ renderCheckout(); } else { renderWallet(); }
+}
+function submitOrder(){
+  const m = payMethods();
+  const chosen = state.payments.find(p=>(p.type==='card'?('card:'+p.last4):p.type)===payChoice);
+  if(!chosen){ toast('请先选择支付方式', false); return; }
+  if(state.cart.length===0){ toast('购物车为空', false); return; }
+  const overlay = $('processing');
+  overlay.classList.add('show');
+  const items = state.cart.map(it=>{ const p=PRODUCTS.find(x=>x.id===it.id); return {id:p.id, name:p.name, img:p.img, price:p.price, qty:it.qty}; });
+  const total = cartTotal();
+  setTimeout(()=>{
+    const no = 'AU' + Date.now().toString().slice(-8) + Math.floor(100+Math.random()*900);
+    const methodLabel = chosen.type==='card' ? ('银行卡 · 尾号 '+chosen.last4) : chosen.label;
+    state.orders.unshift({no:no, time:Date.now(), items:items, total:total, method:methodLabel, status:'待发货'});
+    state.cart = [];
+    saveState();
+    overlay.classList.remove('show');
+    updateBadges();
+    go('#/success/'+no);
+  }, 1900);
+}
+
+/* ---------- 视图：支付成功 ---------- */
+function renderSuccess(orderNo){
+  const el = $('view-success');
+  const o = state.orders.find(x=>x.no===orderNo);
+  if(!o){ go('#/orders'); return; }
+  el.innerHTML =
+    '<div class="container" style="max-width:760px">' +
+      '<div class="success-hero">' +
+        '<div class="success-check">'+I.check+'</div>' +
+        '<h1 class="gold-text">支付成功</h1>' +
+        '<p>尊享礼遇专员将尽快与您联系确认配送事宜</p>' +
+      '</div>' +
+      '<div class="success-card">' +
+        '<div class="sc-line"><span>订单编号</span><b>'+o.no+'</b></div>' +
+        '<div class="sc-line"><span>支付金额</span><b>'+money(o.total)+'</b></div>' +
+        '<div class="sc-line"><span>支付方式</span><b>'+esc(o.method)+'</b></div>' +
+        '<div class="sc-line"><span>订单状态</span><b style="color:var(--ok)">'+o.status+'</b></div>' +
+        '<div class="sc-line"><span>下单时间</span><b>'+new Date(o.time).toLocaleString('zh-CN',{hour12:false})+'</b></div>' +
+      '</div>' +
+      '<div class="success-cta">' +
+        '<button class="btn btn-gold" onclick="go(\'#/orders\')">查看订单</button>' +
+        '<button class="btn btn-ghost" onclick="go(\'#/home\')">继续购物</button>' +
+      '</div>' +
+      '<div class="section-gap"></div>' +
+    '</div>';
+}
+
+/* ---------- 视图：钱包（支付方式管理） ---------- */
+function renderWallet(){
+  const el = $('view-wallet');
+  const m = payMethods();
+  el.innerHTML =
+    '<div class="container">' +
+      '<div class="page-head"><h1>支付方式</h1><p>管理您的银行卡与快捷支付渠道</p></div>' +
+      '<div class="wallet-grid">' +
+        '<div>' +
+          '<div class="sec-title"><span>已绑定</span></div>' +
+          '<div id="walletList"></div>' +
+        '</div>' +
+        '<div>' +
+          '<div class="sec-title"><span>绑定新卡</span></div>' +
+          '<div class="panel">' + cardFormHTML() +
+            '<p class="demo-note">'+I.lock+' 演示环境：绑定流程为前端模拟，不会产生真实扣款。请勿输入真实银行卡信息。</p>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="section-gap"></div>' +
+    '</div>';
+  const list = $('walletList');
+  let html = '';
+  m.cards.forEach(c=>{
+    html += '<div class="pay-card">' +
+      markIco('<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M3.5 9.5h17"/><path d="M7 14.5h5"/></svg>','#2E2E3A') +
+      '<span style="flex:1"><b>'+esc(c.bank)+' 储蓄卡</b><span>尾号 '+c.last4+' · 持卡人 '+esc(c.holder)+' · 有效期 '+esc(c.expiry)+'</span></span>' +
+      '<button class="ci-del" onclick="unbindCard(\''+c.last4+'\')">'+I.trash+' 解绑</button></div>';
+  });
+  m.apps.forEach(a=>{
+    const mark = a.type==='wechat' ? markIco('微','#1FA84F') : markIco('支','#1677FF');
+    html += '<div class="pay-card">' + mark +
+      '<span style="flex:1"><b>'+a.label+'</b><span>已绑定 · 免密快捷支付</span></span>' +
+      '<span class="pm-badge">已绑定</span></div>';
+  });
+  if(m.cards.length===0 && m.apps.length===0) html = '<p class="muted" style="font-size:13px">暂未绑定任何支付方式</p>';
+  list.innerHTML = html || '<p class="muted" style="font-size:13px">暂未绑定任何支付方式</p>';
+}
+function unbindCard(last4){
+  state.payments = state.payments.filter(p=>!(p.type==='card'&&p.last4===last4));
+  saveState(); toast('已解绑该银行卡'); renderWallet();
+}
+
+/* ---------- 视图：订单 ---------- */
+function renderOrders(){
+  const el = $('view-orders');
+  const list = state.orders;
+  const body = list.length===0
+    ? '<div class="empty-state"><div class="e-ico">'+I.order+'</div><h3>暂无订单</h3><p>下单后，订单会在这里呈现</p><button class="btn btn-gold btn-sm" onclick="go(\'#/home\')">去逛逛</button></div>'
+    : list.map(o=>
+      '<div class="order-card">' +
+        '<div class="order-head"><span class="on">订单号 '+o.no+' · '+new Date(o.time).toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false})+'</span><span class="status-chip">'+o.status+'</span></div>' +
+        o.items.map(it=>'<div class="order-items"><img src="'+it.img+'" alt="'+esc(it.name)+'"><span style="flex:1"><b>'+esc(it.name)+'</b><br><span>× '+it.qty+' · '+money(it.price)+'</span></span><span class="muted" style="font-size:13px">'+money(it.price*it.qty)+'</span></div>').join('') +
+        '<div class="order-foot"><span>支付方式：'+esc(o.method)+'</span><span>实付 <b>'+money(o.total)+'</b></span></div>' +
+      '</div>').join('');
+  el.innerHTML =
+    '<div class="container" style="max-width:880px">' +
+      '<div class="page-head"><h1>我的订单</h1><p>每一份心意，皆有所踪</p></div>' + body +
+      '<div class="section-gap"></div>' +
+    '</div>';
+}
+/* ---------- 视图：专属客服 ---------- */
+const QUICK_CHIPS = ['发货时效','如何退款','支持哪些支付','转人工客服'];
+function renderService(){
+  const el = $('view-service');
+  el.innerHTML =
+    '<div class="container chat-layout">' +
+      '<div class="chat-panel">' +
+        '<div class="chat-head">' +
+          '<span class="chat-avatar">'+I.headset+'</span>' +
+          '<span><b>AURUM 专属客服</b><span><span class="online-dot"></span>在线 · 平均响应 30 秒内</span></span>' +
+        '</div>' +
+        '<div class="chat-body" id="chatBody"></div>' +
+        '<div class="chat-quick">' + QUICK_CHIPS.map(c=>'<button class="chip-sm" onclick="quickAsk(\''+c+'\')">'+c+'</button>').join('') + '</div>' +
+        '<div class="chat-input">' +
+          '<input id="chatInput" type="text" placeholder="输入您的问题，如：订单多久发货" autocomplete="off">' +
+          '<button class="send-btn" onclick="sendMsg()">'+I.send+'</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  renderChat();
+  const inp = $('chatInput');
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') sendMsg(); });
+  setTimeout(()=>inp.focus(), 60);
+}
+function chatTime(t){ const d=new Date(t); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+function renderChat(){
+  const body = $('chatBody'); if(!body) return;
+  body.innerHTML = state.chat.map(m=>
+    '<div class="msg '+(m.role==='bot'?'bot':'user')+'">' +
+      '<span class="m-ava">'+(m.role==='bot'?'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13a8 8 0 0 1 16 0v3a3 3 0 0 1-3 3h-1.5"/><path d="M4 13v3a3 3 0 0 0 3 3h1.5"/><path d="M9 20.5l1.5 1.5h3l1.5-1.5"/></svg>':'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c.8-4 4-6 7.5-6s6.7 2 7.5 6"/></svg>')+'</span>' +
+      '<span class="m-box">'+esc(m.text)+'<div class="m-time">'+chatTime(m.time)+'</div></span>' +
+    '</div>').join('');
+  body.scrollTop = body.scrollHeight;
+}
+function sendMsg(){
+  const inp = $('chatInput'); if(!inp) return;
+  const text = inp.value.trim();
+  if(!text) return;
+  state.chat.push({role:'user', text:text, time:Date.now()});
+  saveState();
+  inp.value = '';
+  renderChat();
+  botReply(text);
+}
+function quickAsk(q){
+  const inp = $('chatInput');
+  if(inp) inp.value = q;
+  sendMsg();
+}
+function showTyping(){
+  const body = $('chatBody'); if(!body) return;
+  const t = document.createElement('div');
+  t.className='msg bot'; t.id='typingMsg';
+  t.innerHTML = '<span class="m-ava">'+I.headset+'</span><span class="m-box"><span class="typing"><i></i><i></i><i></i></span></span>';
+  body.appendChild(t);
+  body.scrollTop = body.scrollHeight;
+}
+function hideTyping(){
+  const t = $('typingMsg'); if(t) t.remove();
+}
+function botReply(text){
+  let reply = '';
+  if(/(人工|转人工|真人|专员|电话|号码)/.test(text)){
+    reply = '已为您优先安排专属礼遇专员，我们的高级客服（400-868-2026，服务时间 9:00 – 22:00）将尽快与您取得联系。演示环境中，此回复为模拟转接。';
+  } else if(/(发货|物流|配送|快递|多久|到货|时效)/.test(text)){
+    reply = '尊贵的宾客，AURUM 臻选支持全球配送。下单后 48 小时内出库，国内顺丰速运一般 1 – 3 日送达；礼盒装将采用专属静音包装，全程保价。您可在「我的订单」中随时查看物流状态。';
+  } else if(/(退|换货|退款|售后|七天)/.test(text)){
+    reply = '我们提供 7 天无理由退换服务：商品保持完好、吊牌未拆即可申请。臻选专员会为您安排上门取件，退款将在验收后 1 – 3 个工作日原路退回。定制礼盒类商品除外。';
+  } else if(/(支付|付款|银行卡|微信|支付宝|怎么付|方式)/.test(text)){
+    reply = 'AURUM 支持三种支付方式：① 银行卡（可一键绑定储蓄卡/信用卡）；② 微信支付；③ 支付宝。在结算页选择即可，全程走安全网关加密通道。演示环境中支付为模拟流程，不会产生真实扣款。';
+  } else if(/(正品|真假|质保|保真|防伪|鉴定)/.test(text)){
+    reply = '每一件 AURUM 臻选商品均来自品牌授权渠道，并附专属臻选证书与序列号，支持官方渠道查验。腕表与珠宝类商品提供品牌官方质保，请放心选购。';
+  } else if(/(优惠|会员|折扣|积分|礼遇|贵宾)/.test(text)){
+    reply = '注册即享「AURUM 臻享会员」礼遇：生日贺礼、新品优先购、专属礼盒包装，以及消费累积的臻享积分。详情可咨询您的专属礼遇专员。';
+  } else if(/(订单|查询|物流状态)/.test(text)){
+    reply = '您可以在「我的订单」页面查看全部订单与状态。若需人工协助查询，请回复「转人工客服」，礼遇专员将为您服务。';
+  } else if(/(你好|您好|在吗|hi|hello|嗨|哈喽)/.test(text)){
+    reply = '您好，尊贵的宾客。我是 AURUM 臻选专属客服，很高兴为您服务。您可以询问商品详情、订单配送、支付方式或售后政策，也可以直接回复「转人工客服」由礼遇专员一对一为您服务。';
+  } else {
+    reply = '感谢您的提问。关于这个问题，我已为您记录并转达给专属礼遇专员；您也可以直接回复「转人工客服」获取一对一服务。演示环境中，此回复为模拟应答。';
+  }
+  showTyping();
+  const delay = 700 + Math.random()*800;
+  setTimeout(()=>{
+    hideTyping();
+    state.chat.push({role:'bot', text:reply, time:Date.now()});
+    saveState();
+    renderChat();
+  }, delay);
+}
+
+/* ---------- 视图：个人中心 ---------- */
+function renderProfile(){
+  const el = $('view-profile');
+  const addr = state.address;
+  const ordersCount = state.orders.length;
+  el.innerHTML =
+    '<div class="container" style="max-width:880px">' +
+      '<div class="page-head"><h1>个人中心</h1><p>尊享礼遇，尽在 AURUM</p></div>' +
+      '<div class="profile-head">' +
+        '<span class="avatar"><span>A</span></span>' +
+        '<span><b>'+esc(addr.name)+'</b><p>AURUM 臻享会员 · 尊贵宾客</p>' +
+        '<span class="vip-tag">'+I.diamond+' 臻享会员 GOLD</span></span>' +
+      '</div>' +
+      '<div class="menu-list">' +
+        menuItem('order', I.order, '我的订单', ordersCount?ordersCount+' 笔':'', ()=>go('#/orders')) +
+        menuItem('wallet', I.wallet, '支付方式', '银行卡 / 微信 / 支付宝', ()=>go('#/wallet')) +
+        menuItem('addr', I.pin, '收货地址', addr.detail, ()=>toggleAddr()) +
+        menuItem('svc', I.headset, '专属客服', '全天候在线', ()=>go('#/service')) +
+        menuItem('about', I.shield, '关于与演示说明', '', ()=>toggleDemo()) +
+        menuItem('reset', I.lock, '清除演示数据', '重置本地数据', ()=>resetDemo()) +
+      '</div>' +
+      '<div class="panel hidden" id="addrPanel" style="margin-top:20px"></div>' +
+      '<div class="panel hidden" id="demoPanel" style="margin-top:20px">' +
+        '<h3><span class="p-ico">'+I.shield+'</span>演示说明</h3>' +
+        '<p style="font-size:13.5px;color:var(--muted);line-height:1.9">AURUM 臻选商城为一款<strong style="color:var(--ink)">前端演示应用</strong>：商品、价格、订单与支付均为示例/模拟数据，支付流程不会产生真实扣款，客服为关键词自动应答。真实上线需接入支付服务商、商品与订单后端、人工客服系统，并取得相应经营与备案资质。</p>' +
+        '<p style="font-size:13px;color:var(--muted);margin-top:12px">页面底部黑条展示的备案、许可证与热线信息为随机生成的演示文案，不代表任何真实主体。</p>' +
+      '</div>' +
+      '<div class="section-gap"></div>' +
+    '</div>';
+}
+function menuItem(key, ico, title, note, fn){
+  return '<div class="menu-item" onclick="'+inlineFn(fn)+'"><span class="m-ico">'+ico+'</span><b>'+title+'</b><span class="m-note">'+esc(note)+'</span><span class="m-arrow">'+I.chev+'</span></div>';
+}
+function inlineFn(fn){ return 'menuGo('+fn.toString()+')'; }
+function menuGo(fn){ fn(); }
+function toggleAddr(){
+  const p = $('addrPanel');
+  const a = state.address;
+  if(!p.classList.contains('hidden')){ p.classList.add('hidden'); return; }
+  p.innerHTML =
+    '<h3><span class="p-ico">'+I.pin+'</span>编辑收货地址</h3>' +
+    '<div class="form-grid">' +
+      '<div class="field"><label>收货人</label><input id="adName" value="'+esc(a.name)+'" maxlength="20"></div>' +
+      '<div class="field"><label>联系电话</label><input id="adPhone" value="'+esc(a.phone)+'" maxlength="20"></div>' +
+      '<div class="field" style="grid-column:1/-1"><label>详细地址</label><input id="adDetail" value="'+esc(a.detail)+'" maxlength="80"></div>' +
+      '<div class="field" style="grid-column:1/-1"><button class="btn btn-gold btn-block" onclick="saveAddr()">保存地址</button></div>' +
+    '</div>';
+  p.classList.remove('hidden');
+}
+function saveAddr(){
+  state.address = {name:$('adName').value.trim(), phone:$('adPhone').value.trim(), detail:$('adDetail').value.trim()};
+  saveState(); toast('收货地址已更新'); renderProfile();
+}
+function toggleDemo(){
+  const p = $('demoPanel');
+  p.classList.toggle('hidden');
+}
+function resetDemo(){
+  const btn = document.querySelector('#view-profile .menu-item:last-child b');
+  if(!btn || btn.dataset.arm!=='1'){
+    document.querySelectorAll('#view-profile .menu-item').forEach((m,i)=>{ if(i===5){ m.querySelector('b').dataset.arm='1'; m.querySelector('b').textContent='再次点击确认清除'; m.style.background='rgba(201,100,100,.08)'; setTimeout(()=>{ delete m.querySelector('b').dataset.arm; m.querySelector('b').textContent='清除演示数据'; m.style.background=''; },2600); } });
+    return;
+  }
+  localStorage.removeItem(LS_KEY);
+  state = defaultState();
+  saveState();
+  toast('演示数据已重置');
+  render();
+}
+
+/* ---------- 移动端底栏 ---------- */
+function renderTabbar(){
+  const tb = $('tabbar');
+  const tabs = [
+    {key:'home', label:'首页', icon:I.home},
+    {key:'cart', label:'购物车', icon:I.cart},
+    {key:'service', label:'客服', icon:I.headset},
+    {key:'profile', label:'我的', icon:I.user},
+  ];
+  tb.innerHTML = tabs.map(t=>
+    '<div class="tab-item" data-tab="'+t.key+'" onclick="go(\'#/'+(t.key==='profile'?'profile':t.key==='cart'?'cart':t.key==='service'?'service':'home')+'\')">' +
+      '<span>'+(t.key==='cart'?'<span class="badge hidden" id="tabCartBadge">0</span>':'')+t.icon+'</span>' +
+      t.label +
+    '</div>').join('');
+}
+
+/* ---------- 底部黑条：随机备案信息 ---------- */
+function rand(n){ return Math.floor(Math.random()*Math.pow(10,n)).toString().padStart(n,'0'); }
+function filingText(){
+  const pair = [
+    ['京ICP备2026'+rand(4)+'号-1','京公网安备 11010502'+rand(6)+'号'],
+    ['沪ICP备2026'+rand(4)+'号-1','沪公网安备 310104'+rand(6)+'号'],
+    ['粤ICP备2026'+rand(4)+'号-2','粤公网安备 440305'+rand(6)+'号'],
+    ['浙ICP备2026'+rand(4)+'号-1','浙公网安备 330106'+rand(6)+'号'],
+    ['苏ICP备2026'+rand(4)+'号-1','苏公网安备 320102'+rand(6)+'号'],
+  ][Math.floor(Math.random()*5)];
+  return pair[0]+' · '+pair[1]+' · 增值电信业务经营许可证 京B2-2026'+rand(4)+' · 客服热线 400-'+rand(3)+'-'+rand(4)+' · © 2026 AURUM 臻选精品百货';
+}
+function renderFiling(){
+  const wrap = $('filingInner'); if(!wrap) return;
+  wrap.innerHTML =
+    '<span class="f-brand">AURUM 臻选</span>' +
+    '<span class="filing-dot"></span>' +
+    '<span class="filing-text">'+filingText()+'</span>';
+}
+
+/* ---------- 初始化 ---------- */
+function initNavCats(){
+  document.querySelectorAll('#navLinks a[data-cat]').forEach(a=>{
+    a.addEventListener('click', ()=>{ homeCat = a.dataset.cat; if($('view-home').classList.contains('active')) renderHome(); });
+  });
+}
+function init(){
+  render();
+  initSearch();
+  initNavCats();
+  renderTabbar();
+  updateBadges();
+  renderFiling();
+  setInterval(renderFiling, 8000);
+}
+init();
+
+</script>
+
+</body>
+</html>
+
